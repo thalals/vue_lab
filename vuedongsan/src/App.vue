@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
 
   <div class="menu">
@@ -11,25 +8,35 @@
     <div v-for="(product, index) in products" :key="index">
       <h3> {{ product }}</h3>
       <p> {{ prices[index] }} 만원 </p>
+      <button v-on:click="increaseReports(index)">허위매물신고</button>
+      <span>신고수 : {{ 신고수[index] }}</span>
     </div>
+
   </main>
+
 </template>
 
 <script>
+//데이터 선언
+export default {
+  name: 'App',
+  data() {
+    return {
+      prices: [60, 70, 80],
+      css_color_style: 'color : blue',
+      products: ['역삼동 원룸', '천호동 원룸', '마포구 원룸'],
+      menus: ['Home', 'Shop', 'About'],
+      신고수: [0,0,0]
+    }
+  },
 
-  //데이터 선언
-  export default {
-    name: 'App',
-    data(){
-      return {
-        prices : [60,70,80],
-        css_color_style : 'color : blue',
-        products : ['역삼동 원룸', '천호동 원룸', '마포구 원룸'],
-        menus : ['Home', 'Shop', 'About']
-      }
+  methods : {
+    increaseReports(index) {
+      this.신고수[index] += 1;
     }
   }
 
+}
 </script>
 
 <style scoped>
@@ -40,7 +47,7 @@
   border-radius: 10px;
 }
 
-.menu a{
+.menu a {
   padding: 10px;
 }
 
