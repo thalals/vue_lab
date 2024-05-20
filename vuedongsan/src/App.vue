@@ -5,7 +5,8 @@
   </div>
 
   <main>
-    <div v-for="(product, index) in products" :key="index">
+    <div class="products" v-for="(product, index) in products" :key="index">
+      <img src="./assets/logo.svg" class="room-img">
       <h3> {{ product }}</h3>
       <p> {{ prices[index] }} 만원 </p>
       <button v-on:click="increaseReports(index)">허위매물신고</button>
@@ -51,4 +52,11 @@ export default {
   padding: 10px;
 }
 
+.products{
+  text-align: center;
+}
+.room-img{
+  width: 20%;
+  margin-top: 40px;
+}
 </style>
