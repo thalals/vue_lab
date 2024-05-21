@@ -1,23 +1,25 @@
 <template>
 
-  <div class="menu">
-    <a v-for="(menu, index) in menus" :key="index">{{ menu }}</a>
-  </div>
-
   <!-- 모달창 -->
   <div class="black-bg" v-if="isModalOpen" v-on:click="modalClose()">
     <div class="white-bg">
-      <p>dfdd</p>
+      <img :src="modalImg"/>
+      <p>{{ modalContent }}</p>
     </div>
   </div>
 
   <main>
-    <div class="products" v-for="(product, index) in products" :key="index">
-      <img v-on:click="modalOpen();" src="./assets/logo.svg" class="room-img">
-      <h3> {{ product }}</h3>
-      <p> {{ prices[index] }} 만원 </p>
+    <div class="menu">
+      <a v-for="(menu, index) in menus" :key="index">{{ menu }}</a>
+    </div>
+
+    <div class="products" v-for="(product, index) in 원룸들" :key="index">
+      <img v-on:click="modalOpen(product.image, product.content);" :src="product.image" class="room-img">
+
+      <h3> {{ product.title }}</h3>
+      <p> {{ product.price }} 만원 </p>
       <button v-on:click="increaseReports(index)">허위매물신고</button>
-      <span>신고수 : {{ 신고수[index] }}</span>
+      <br><span>신고수 : {{ 신고수[index] }}</span>
     </div>
 
   </main>
@@ -25,6 +27,8 @@
 </template>
 
 <script>
+import data from './assets/data.js'
+
 //데이터 선언
 export default {
   name: 'App',
@@ -34,8 +38,15 @@ export default {
       css_color_style: 'color : blue',
       products: ['역삼동 원룸', '천호동 원룸', '마포구 원룸'],
       menus: ['Home', 'Shop', 'About'],
-      신고수: [0, 0, 0],
-      isModalOpen : false
+      신고수: [0,0,0],
+
+      // 모달 데이터
+      modalImg: "",
+      modalContent: "",
+      isModalOpen : false,
+
+      // Import, export 데이터
+      원룸들 : data
     }
   },
 
@@ -43,7 +54,9 @@ export default {
     increaseReports(index) {
       this.신고수[index] += 1;
     },
-    modalOpen() {
+    modalOpen(img, content) {
+      this.modalImg = img;
+      this.modalContent = content;
       this.isModalOpen = true;
     },
     modalClose() {
@@ -63,6 +76,8 @@ div{
 
 .menu {
   background: bisque;
+  width: 100%;
+  height: 5%;
   padding: 15px;
   border-radius: 10px;
 }
@@ -77,7 +92,7 @@ div{
 }
 
 .black-bg{
-  width: 50%;
+  width: 80%;
   background: #181818;
   position: fixed;
   padding: 20px;
