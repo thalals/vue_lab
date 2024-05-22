@@ -1,8 +1,10 @@
 <template>
-  <div class="black-bg" v-if="isModalOpen" v-on:click="modalClose()">
+  <div class="black-bg" v-if="isModalOpen">
     <div class="white-bg">
       <img :src="modalImg"/>
       <p>{{ modalContent }}</p>
+
+      <button @click="$emit('modalClose')">닫기</button>
     </div>
   </div>
 </template>
@@ -10,6 +12,11 @@
 <script>
 export default {
   name: 'Modal',
+  data() {
+    return {
+    }
+  },
+
   //부모로 받아온 데이터를 수신 및 정의
   // 변수명 : 자료형
   props: {
@@ -19,11 +26,7 @@ export default {
     modalContent : String,
   },
 
-  methods:{
-    modalClose() {
-      this.isModalOpen = false;
-    }
-  }
+  methods:{}
 };
 </script>
 

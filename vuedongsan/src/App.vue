@@ -8,10 +8,10 @@
   <Discount></Discount>
 
   <!-- 모달창 -->
-  <Modal :원룸들="원룸들" :isModalOpen="isModalOpen" :modalImg="modalImg" :modalContent="modalContent"/>
+  <Modal @modalClose="modalClose" :원룸들="원룸들" :isModalOpen="isModalOpen" :modalImg="modalImg" :modalContent="modalContent"/>
 
   <!-- 상품 Component  -->
-  <Card v-for="(product, index) in 원룸들" :key="index" :product="product" />
+  <Card @openModal="modalOpen(product.image, product.content)" v-for="(product, index) in 원룸들" :key="index" :product="product" :index="index"/>
 
 
 </template>
@@ -32,8 +32,6 @@ export default {
       menus: ['Home', 'Shop', 'About'],
 
       // 모달 데이터
-      modalImg: "",
-      modalContent: "",
       isModalOpen: false,
 
       // Import, export 데이터
@@ -42,6 +40,14 @@ export default {
   },
 
   methods: {
+    modalOpen(img, content) {
+      this.modalImg = img;
+      this.modalContent = content;
+      this.isModalOpen = true;
+    },
+    modalClose() {
+      this.isModalOpen = false;
+    }
   }
 
 }

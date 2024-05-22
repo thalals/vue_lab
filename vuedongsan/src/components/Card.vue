@@ -1,11 +1,12 @@
 <template>
   <div>
-    <img v-on:click="modalOpen(product.image, product.content);" :src="product.image" class="room-img">
+    <!-- 부모에게 이벤트 메세지 전달 "$emit('이벤트명', 전송할 데이터)"   -->
+    <img v-on:click="$emit('openModal', index)" :src="product.image" class="room-img">
 
     <h3> {{ product.title }}</h3>
     <p> {{ product.price }} 만원 </p>
-    <button v-on:click="increaseReports(key)">허위매물신고</button>
-    <br><span>신고수 : {{ 신고수[key] }}</span>
+    <button v-on:click="increaseReports(index)">허위매물신고</button>
+    <br><span>신고수 : {{ 신고수[index] }}</span>
   </div>
 </template>
 
@@ -18,16 +19,11 @@ export default {
   },
   props:{
     product: Object,
-    key: Number
+    index: Number
   },
   methods: {
     increaseReports(index) {
       this.신고수[index] += 1;
-    },
-    modalOpen(img, content) {
-      this.modalImg = img;
-      this.modalContent = content;
-      this.isModalOpen = true;
     }
   }
 }
