@@ -8,21 +8,10 @@
   <Discount></Discount>
 
   <!-- 모달창 -->
-  <div class="black-bg" v-if="isModalOpen" v-on:click="modalClose()">
-    <div class="white-bg">
-      <img :src="modalImg"/>
-      <p>{{ modalContent }}</p>
-    </div>
-  </div>
+  <Modal :원룸들="원룸들" :isModalOpen="isModalOpen" :modalImg="modalImg" :modalContent="modalContent"/>
 
-  <div class="products" v-for="(product, index) in 원룸들" :key="index">
-    <img v-on:click="modalOpen(product.image, product.content);" :src="product.image" class="room-img">
-
-    <h3> {{ product.title }}</h3>
-    <p> {{ product.price }} 만원 </p>
-    <button v-on:click="increaseReports(index)">허위매물신고</button>
-    <br><span>신고수 : {{ 신고수[index] }}</span>
-  </div>
+  <!-- 상품 Component  -->
+  <Card v-for="(product, index) in 원룸들" :key="index" :product="product" />
 
 
 </template>
@@ -30,19 +19,17 @@
 <script>
 import data from './assets/data.js'
 import Discount from "@/components/Discount.vue";
+import Modal from "@/components/Modal.vue";
+import Card from "@/components/Card.vue";
 
 //데이터 선언
 export default {
   name: 'App',
-  components: {Discount},
+  components: {Modal, Discount, Card},
 
   data() {
     return {
-      prices: [60, 70, 80],
-      css_color_style: 'color : blue',
-      products: ['역삼동 원룸', '천호동 원룸', '마포구 원룸'],
       menus: ['Home', 'Shop', 'About'],
-      신고수: [0, 0, 0],
 
       // 모달 데이터
       modalImg: "",
@@ -55,17 +42,6 @@ export default {
   },
 
   methods: {
-    increaseReports(index) {
-      this.신고수[index] += 1;
-    },
-    modalOpen(img, content) {
-      this.modalImg = img;
-      this.modalContent = content;
-      this.isModalOpen = true;
-    },
-    modalClose() {
-      this.isModalOpen = false;
-    }
   }
 
 }
@@ -88,32 +64,6 @@ div {
 
 .menu a {
   padding: 10px;
-}
-
-.discount{
-  background: lightgrey;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-}
-
-.room-img {
-  width: 20%;
-  margin-top: 40px;
-}
-
-.black-bg {
-  width: 80%;
-  background: #181818;
-  position: fixed;
-  padding: 20px;
-}
-
-.white-bg {
-  width: 100%;
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
 }
 
 </style>
