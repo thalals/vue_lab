@@ -4,6 +4,12 @@
       <img :src="modalImg"/>
       <p>{{ modalContent }}</p>
 
+      <p> {{ month }}개월 선택함 : </p>
+      <!-- 방법 1: js eventListener 사용자 입력값 변수  -->
+      <input @input="month = $event.target.value">
+      <!-- 방법 2     -->
+      <input v-model.number="month">
+
       <button @click="$emit('modalClose')">닫기</button>
     </div>
   </div>
@@ -14,6 +20,9 @@ export default {
   name: 'Modal',
   data() {
     return {
+      month: 1,
+      totalPrice: 0,
+
     }
   },
 
