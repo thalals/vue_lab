@@ -25,6 +25,16 @@ export default {
 
     }
   },
+  // 데이터 감시자 - data 변경시 마다 해당 함수가 실행
+  watch : {
+    //변수명과 함수명을 동일하게
+    month(input) {
+      if (isNaN(input) || input >= 13 || input < 1) {
+        alert("1~12까지 숫자를 입력해주세요" )
+      }
+    }
+  },
+
 
   //부모로 받아온 데이터를 수신 및 정의
   // 변수명 : 자료형
