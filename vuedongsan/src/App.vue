@@ -8,7 +8,7 @@
   <button @click="sortBack">되돌리기</button>
 
   <!-- Component  -->
-  <Discount></Discount>
+  <Discount v-if="showDiscount == true"></Discount>
 
   <Transition name="fade">     <!-- 모달창 -->
     <Modal @modalClose="modalClose" :원룸들="원룸들" :isModalOpen="isModalOpen" :modalImg="modalImg" :modalContent="modalContent"/>
@@ -41,7 +41,11 @@ export default {
 
       // Import, export 데이터
       원룸들: data,
-      원룸들오리지널: [...data]  //[...복사할데이터]
+      원룸들오리지널: [...data],  //[...복사할데이터]
+
+      // discount component 상태 변수
+      showDiscount: true,
+
     }
   },
 
