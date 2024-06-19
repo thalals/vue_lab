@@ -4,6 +4,9 @@
     <a v-for="(menu, index) in menus" :key="index">{{ menu }}</a>
   </div>
 
+  <button @click="priceSort">가격순 정렬</button>
+  <button @click="sortBack">되돌리기</button>
+
   <!-- Component  -->
   <Discount></Discount>
 
@@ -37,7 +40,8 @@ export default {
       isModalOpen: false,
 
       // Import, export 데이터
-      원룸들: data
+      원룸들: data,
+      원룸들오리지널: [...data]  //[...복사할데이터]
     }
   },
 
@@ -49,7 +53,15 @@ export default {
     },
     modalClose() {
       this.isModalOpen = false;
-    }
+    },
+    priceSort() {
+      this.원룸들.sort(function (a, b) {
+        return a.price - b.price;
+      });
+    },
+    sortBack() {
+      this.원룸들 = [...this.원룸들오리지널];
+    },
   }
 
 }
