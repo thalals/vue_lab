@@ -7,8 +7,10 @@
   <!-- Component  -->
   <Discount></Discount>
 
-  <!-- 모달창 -->
-  <Modal @modalClose="modalClose" :원룸들="원룸들" :isModalOpen="isModalOpen" :modalImg="modalImg" :modalContent="modalContent"/>
+  <Transition name="fade">     <!-- 모달창 -->
+    <Modal @modalClose="modalClose" :원룸들="원룸들" :isModalOpen="isModalOpen" :modalImg="modalImg" :modalContent="modalContent"/>
+  </Transition>
+
 
   <!-- 상품 Component  -->
   <Card @openModal="modalOpen(product.image, product.content)" v-for="(product, index) in 원룸들" :key="index" :product="product" :index="index"/>
@@ -54,7 +56,17 @@ export default {
 
 </script>
 
-<style scoped>
+<style>
+.fade-enter-form{
+  opacity: 0;
+}
+.fade-enter-active{
+  transition: all 1s;
+}
+.fade-enter-to{
+  opacity: 1;
+}
+
 div {
   box-sizing: border-box;
   text-align: center;
@@ -71,5 +83,6 @@ div {
 .menu a {
   padding: 10px;
 }
+
 
 </style>
