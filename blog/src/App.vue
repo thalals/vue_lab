@@ -24,7 +24,10 @@ export default {
     <p> - Vue 로 만들었음 - </p>
   </div>
 
-  <List :articles="articles"></List>
+  <router-link to="/list"> 리스트 페이지 </router-link> <br>
+  <router-link to="/"> 홈 페이지 </router-link>
+
+  <router-view :articles="articles"></router-view>
 
 </template>
 
