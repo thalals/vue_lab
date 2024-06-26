@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <div v-for="(article, index) in articles" :key="index">
+  <div @click="$router.push('/detail/'+index)" v-for="(article, index) in articles" :key="index">
     <h5> {{ article.title }} </h5>
     <p> {{ article.content }} </p>
     <p> {{ article.date }} </p>
