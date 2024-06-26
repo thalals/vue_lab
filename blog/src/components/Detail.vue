@@ -18,6 +18,8 @@ export default {
     <p> {{ articles[$route.params.id].content }} </p>
     <p> {{ articles[$route.params.id].date }} </p>
   </div>
+
+  <router-view></router-view>
 </template>
 
 <style>
