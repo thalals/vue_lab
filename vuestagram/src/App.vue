@@ -13,6 +13,8 @@ export default{
       moreCount: 0,
       step: 0,  //페이지 선택 변수
 
+      imageUploadUrl: "",
+      postWrite: ""
     };
   },
 
@@ -27,7 +29,32 @@ export default{
           .catch((err) =>{
             alert(err);
           });
+    },
 
+    upload(e) {
+      let files = e.target.files;
+      this.imageUploadUrl = URL.createObjectURL(files[0]);
+      console.log(this.imageUploadUrl);
+      this.step = 1
+    },
+
+    publish() {
+      var newPost = {
+        name: "Kim Hyun",
+        userImage: "https://picsum.photos/100?random=3",
+        postImage: this.imageUploadUrl,
+        likes: 0,
+        date: "May 15",
+        liked: false,
+        content: this.postWrite,
+        filter: "perpetua"
+      };
+      this.postData.unshift(newPost);
+      this.step = 0;
+    },
+
+    write(write) {
+      this.postWrite = write;
     },
   }
 }
@@ -40,17 +67,18 @@ export default{
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="this.step++">Next</li>
+      <li v-if="step == 2" @click="publish">Publish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :posts="postData" :step="step"/>
+  <Container @write="write" :posts="postData" :step="step" :imageUploadUrl="imageUploadUrl"/>
   <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
