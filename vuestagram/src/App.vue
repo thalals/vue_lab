@@ -11,6 +11,7 @@ export default{
     return {
       postData: Data,
       moreCount: 0,
+      step: 0,  //페이지 선택 변수
 
     };
   },
@@ -44,7 +45,7 @@ export default{
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :posts="postData"/>
+  <Container :posts="postData" :step="step"/>
   <button @click="more">더보기</button>
 
   <div class="footer">
