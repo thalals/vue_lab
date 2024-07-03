@@ -1,17 +1,34 @@
 <script>
 import Container from "@/components/Container.vue";
 import Data from "@/assets/data.js"
+import axios from "axios";
 
 export default{
   name: "app",
   components:{Container},
 
-  data(){
+  data() {
     return {
       postData: Data,
-    };
-  }
+      moreCount: 0,
 
+    };
+  },
+
+  methods:{
+    more() {
+      axios
+          .get(`https://codingapple1.github.io/vue/more${this.moreCount}.json`)
+          .then((result) => {
+            this.postData.push(result.data);
+            this.moreCount += 1;
+          })
+          .catch((err) =>{
+            alert(err);
+          });
+
+    },
+  }
 }
 
 </script>
@@ -28,6 +45,7 @@ export default{
   </div>
 
   <Container :posts="postData"/>
+  <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
