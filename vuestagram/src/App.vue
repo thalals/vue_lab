@@ -26,7 +26,7 @@ export default{
             this.postData.push(result.data);
             this.moreCount += 1;
           })
-          .catch((err) =>{
+          .catch((err) => {
             alert(err);
           });
     },
@@ -72,6 +72,7 @@ export default{
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
+
 
   <Container @write="write" :posts="postData" :step="step" :imageUploadUrl="imageUploadUrl"/>
   <button @click="more">더보기</button>
