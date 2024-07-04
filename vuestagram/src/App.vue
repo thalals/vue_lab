@@ -1,5 +1,6 @@
 <script>
 import Container from "@/components/Container.vue";
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default{
   name: "app",
@@ -12,13 +13,25 @@ export default{
     };
   },
 
-  methods:{
+  // vuex mapState
+  computed: {
+    // vuex state 변수
+    ...mapState(["posts", "step", "likes"]),
+    ...mapState({ 게시물들 : "posts"}),
+  },
+
+  methods: {
+    //vuex mapMutations
+    ...mapMutations(['publish', 'setStep']),
+    ...mapActions(['more']),
 
     upload(e) {
       let files = e.target.files;
       this.imageUploadUrl = URL.createObjectURL(files[0]);
       console.log(this.imageUploadUrl);
-      this.$store.commit("setStep", 1);
+
+      //use mapMutation
+      setStep(1);
 
     },
 
@@ -59,7 +72,8 @@ export default{
 
 
   <Container @write="write" :imageUploadUrl="imageUploadUrl"/>
-  <button @click="$store.dispatch('more')">더보기</button>
+<!--  <button @click="$store.dispatch('more')">더보기</button>-->
+  <button @click='more'>더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
