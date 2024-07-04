@@ -6,21 +6,18 @@ export default {
   components: {Post},
 
   props: {
-    posts: Array,
-    step: Number,
     imageUploadUrl: String,
-
   }
 }
 </script>
 
 <template>
-  <div v-if="step === 0">
-    <Post v-for="(post, index) in posts" :key="index" :post="post"/>
+  <div v-if="$store.state.step === 0">
+    <Post v-for="(post, index) in $store.state.posts" :key="index" :post="post"/>
   </div>
 
   <!-- 필터선택페이지 -->
-  <div v-if="step === 1">
+  <div v-if="$store.state.step === 1">
     <div class="upload-image" :style="{backgroundImage : `url(${imageUploadUrl})`}"></div>
     <div class="filters">
       <div class="filter-1"></div>
@@ -32,7 +29,7 @@ export default {
   </div>
 
   <!-- 글작성페이지 -->
-  <div v-if="step === 2">
+  <div v-if="$store.state.step === 2">
     <div class="upload-image"></div>
     <div class="write">
       <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea>

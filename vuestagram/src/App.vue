@@ -1,7 +1,5 @@
 <script>
 import Container from "@/components/Container.vue";
-import Data from "@/assets/data.js"
-import axios from "axios";
 
 export default{
   name: "app",
@@ -9,33 +7,19 @@ export default{
 
   data() {
     return {
-      postData: Data,
-      moreCount: 0,
-      step: 0,  //페이지 선택 변수
-
       imageUploadUrl: "",
       postWrite: ""
     };
   },
 
   methods:{
-    more() {
-      axios
-          .get(`https://codingapple1.github.io/vue/more${this.moreCount}.json`)
-          .then((result) => {
-            this.postData.push(result.data);
-            this.moreCount += 1;
-          })
-          .catch((err) => {
-            alert(err);
-          });
-    },
 
     upload(e) {
       let files = e.target.files;
       this.imageUploadUrl = URL.createObjectURL(files[0]);
       console.log(this.imageUploadUrl);
-      this.step = 1
+      this.$store.commit("setStep", 1);
+
     },
 
     publish() {
@@ -49,8 +33,8 @@ export default{
         content: this.postWrite,
         filter: "perpetua"
       };
-      this.postData.unshift(newPost);
-      this.step = 0;
+      this.$store.commit("publish", newPost);
+      this.$store.commit("setStep", 0);
     },
 
     write(write) {
@@ -67,15 +51,15 @@ export default{
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li v-if="step == 1" @click="this.step++">Next</li>
-      <li v-if="step == 2" @click="publish">Publish</li>
+      <li v-if="$store.state.step == 1" @click="$store.commit('setStep', 2)">Next</li>
+      <li v-if="$store.state.step == 2" @click="publish">Publish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
 
-  <Container @write="write" :posts="postData" :step="step" :imageUploadUrl="imageUploadUrl"/>
-  <button @click="more">더보기</button>
+  <Container @write="write" :imageUploadUrl="imageUploadUrl"/>
+  <button @click="$store.dispatch('more')">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
