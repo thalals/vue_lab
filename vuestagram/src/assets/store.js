@@ -7,7 +7,7 @@ const store = createStore({
         return {
             posts: data,
             moreCount: 0,
-            step: 0,  //페이지 선택 변수
+            step: 3,  //페이지 선택 변수
             likes: 30,
 
         };

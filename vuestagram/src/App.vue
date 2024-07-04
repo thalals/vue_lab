@@ -31,7 +31,7 @@ export default{
       console.log(this.imageUploadUrl);
 
       //use mapMutation
-      setStep(1);
+      this.setStep(1);
 
     },
 
